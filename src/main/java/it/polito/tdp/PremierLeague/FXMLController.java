@@ -19,68 +19,92 @@ import javafx.scene.control.TextField;
 public class FXMLController {
 
 	Model model;
+
+	@FXML // ResourceBundle that was given to the FXMLLoader
+	private ResourceBundle resources;
+
+	@FXML // URL location of the FXML file that was given to the FXMLLoader
+	private URL location;
+
+	@FXML // fx:id="btnCreaGrafo"
+	private Button btnCreaGrafo; // Value injected by FXMLLoader
+
+	@FXML // fx:id="btnConnessioneMassima"
+	private Button btnConnessioneMassima; // Value injected by FXMLLoader
+
+	@FXML // fx:id="btnCollegamento"
+	private Button btnCollegamento; // Value injected by FXMLLoader
+
+	@FXML // fx:id="txtMinuti"
+	private TextField txtMinuti; // Value injected by FXMLLoader
+
+	@FXML // fx:id="cmbMese"
+	private ComboBox<Integer> cmbMese; // Value injected by FXMLLoader
+
+	@FXML // fx:id="cmbM1"
+	private ComboBox<?> cmbM1; // Value injected by FXMLLoader
+
+	@FXML // fx:id="cmbM2"
+	private ComboBox<?> cmbM2; // Value injected by FXMLLoader
+
+	@FXML // fx:id="txtResult"
+	private TextArea txtResult; // Value injected by FXMLLoader
+
+	@FXML
+	void doConnessioneMassima(ActionEvent event) {
+		int minuti = Integer.parseInt(txtMinuti.getText());
+		txtResult.appendText(model.getPesoMassimo());
+
+	}
+
+	@FXML
+	void doCreaGrafo(ActionEvent event) {
+		int mese = cmbMese.getValue();
+
+		if (mese == 0) {
+			txtResult.appendText("Selezionare un mese.. ");
+			return;
+		}
+
+		try {
+    		int minuti = Integer.parseInt(txtMinuti.getText());
+    		txtResult.appendText(model.creaGrafo(mese, minuti)+"\n");
+    	} catch (NumberFormatException e) {
+    		txtResult.appendText("Devi inserire un numerico!");
+    		return;
+    	}
 	
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
 
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
+		
 
-    @FXML // fx:id="btnCreaGrafo"
-    private Button btnCreaGrafo; // Value injected by FXMLLoader
+	}
 
-    @FXML // fx:id="btnConnessioneMassima"
-    private Button btnConnessioneMassima; // Value injected by FXMLLoader
+	@FXML
+	void doCollegamento(ActionEvent event) {
 
-    @FXML // fx:id="btnCollegamento"
-    private Button btnCollegamento; // Value injected by FXMLLoader
+	}
 
-    @FXML // fx:id="txtMinuti"
-    private TextField txtMinuti; // Value injected by FXMLLoader
+	@FXML // This method is called by the FXMLLoader when initialization is complete
+	void initialize() {
+		assert btnCreaGrafo != null : "fx:id=\"btnCreaGrafo\" was not injected: check your FXML file 'Scene.fxml'.";
+		assert btnConnessioneMassima != null
+				: "fx:id=\"btnConnessioneMassima\" was not injected: check your FXML file 'Scene.fxml'.";
+		assert btnCollegamento != null
+				: "fx:id=\"btnCollegamento\" was not injected: check your FXML file 'Scene.fxml'.";
+		assert txtMinuti != null : "fx:id=\"txtMinuti\" was not injected: check your FXML file 'Scene.fxml'.";
+		assert cmbMese != null : "fx:id=\"cmbMese\" was not injected: check your FXML file 'Scene.fxml'.";
+		assert cmbM1 != null : "fx:id=\"cmbM1\" was not injected: check your FXML file 'Scene.fxml'.";
+		assert cmbM2 != null : "fx:id=\"cmbM2\" was not injected: check your FXML file 'Scene.fxml'.";
+		assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Scene.fxml'.";
 
-    @FXML // fx:id="cmbMese"
-    private ComboBox<?> cmbMese; // Value injected by FXMLLoader
+	}
 
-    @FXML // fx:id="cmbM1"
-    private ComboBox<?> cmbM1; // Value injected by FXMLLoader
+	public void setModel(Model model) {
+		this.model = model;
+		for (int i = 1; i <= 12; i++) {
+			cmbMese.getItems().add(i);
+		}
 
-    @FXML // fx:id="cmbM2"
-    private ComboBox<?> cmbM2; // Value injected by FXMLLoader
+	}
 
-    @FXML // fx:id="txtResult"
-    private TextArea txtResult; // Value injected by FXMLLoader
-
-    @FXML
-    void doConnessioneMassima(ActionEvent event) {
-    	
-    }
-
-    @FXML
-    void doCreaGrafo(ActionEvent event) {
-    	
-    }
-
-    @FXML
-    void doCollegamento(ActionEvent event) {
-    	
-    }
-
-    @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
-        assert btnCreaGrafo != null : "fx:id=\"btnCreaGrafo\" was not injected: check your FXML file 'Scene.fxml'.";
-        assert btnConnessioneMassima != null : "fx:id=\"btnConnessioneMassima\" was not injected: check your FXML file 'Scene.fxml'.";
-        assert btnCollegamento != null : "fx:id=\"btnCollegamento\" was not injected: check your FXML file 'Scene.fxml'.";
-        assert txtMinuti != null : "fx:id=\"txtMinuti\" was not injected: check your FXML file 'Scene.fxml'.";
-        assert cmbMese != null : "fx:id=\"cmbMese\" was not injected: check your FXML file 'Scene.fxml'.";        assert cmbM1 != null : "fx:id=\"cmbM1\" was not injected: check your FXML file 'Scene.fxml'.";
-        assert cmbM2 != null : "fx:id=\"cmbM2\" was not injected: check your FXML file 'Scene.fxml'.";
-        assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Scene.fxml'.";
-
-    }
-    
-    public void setModel(Model model) {
-    	this.model = model;
-  
-    }
-    
-    
 }
